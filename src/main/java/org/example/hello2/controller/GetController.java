@@ -1,9 +1,6 @@
 package org.example.hello2.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/get-api")
@@ -18,4 +15,14 @@ public class GetController {
     public String variable1(@PathVariable String variable) {
         return variable;
     }
+
+    @GetMapping("param")
+    public String param(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String organization) {
+
+        return name + "Hello World" + email + "/" + organization;
+    }
+
 }
