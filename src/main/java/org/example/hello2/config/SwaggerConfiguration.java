@@ -19,7 +19,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.springboot.api"))
+                .apis(RequestHandlerSelectors.basePackage("org.example.hello2"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -32,3 +32,6 @@ public class SwaggerConfiguration {
                 .build();
     }
 }
+
+
+// http://localhost:8888/swagger-ui.html
