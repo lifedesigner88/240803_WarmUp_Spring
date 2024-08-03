@@ -1,5 +1,6 @@
 package org.example.hello2.controller;
 
+import org.example.hello2.dto.MemberDto;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,12 +18,16 @@ public class GetController {
     }
 
     @GetMapping("param")
-    public String param(
-            @RequestParam String name,
-            @RequestParam String email,
-            @RequestParam String organization) {
+    public String param(@RequestParam String name,
+                        @RequestParam String email,
+                        @RequestParam String organization) {
 
         return name + "Hello World" + email + "/" + organization;
+    }
+
+    @GetMapping("memberDto")
+    public String memberDto(MemberDto memberDto) {
+        return memberDto.toString();
     }
 
 }
