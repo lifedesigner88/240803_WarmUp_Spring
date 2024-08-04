@@ -6,6 +6,8 @@ import org.example.hello2.data.dto.ProductResponseDto;
 import org.example.hello2.data.entity.Product;
 import org.example.hello2.service.ProductService;
 
+import java.time.LocalDateTime;
+
 public class ProductServiceImpl implements ProductService {
     private final ProductDAO productDAO;
 
@@ -29,16 +31,45 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto saveProduct(ProductDto productDto) {
-        return null;
+
+        Product product = new Product();
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        product.setStock(productDto.getStock());
+        product.setCreateAt(LocalDateTime.now());
+        product.setUpdateAt(LocalDateTime.now());
+
+        Product savedProduct = productDAO.insertProduct(product);
+
+        ProductResponseDto productResponseDto = new ProductResponseDto();
+        productResponseDto.setNumber(savedProduct.getNumber());
+        productResponseDto.setName(savedProduct.getName());
+        productResponseDto.setPrice(savedProduct.getPrice());
+        productResponseDto.setStock(savedProduct.getStock());
+
+        return productResponseDto;
+
     }
 
     @Override
     public ProductResponseDto changeProductName(Long number, String newName) throws Exception {
-        return null;
+        Product changedProduct = productDAO.updateProductName(number, newName);
+
+        ProductResponseDto productResponseDto = new ProductResponseDto();
+        productResponseDto.setNumber(changedProduct.getNumber());
+        productResponseDto.setName(changedProduct.getName());
+        productResponseDto.setPrice(changedProduct.getPrice());
+        productResponseDto.setStock(changedProduct.getStock());
+
+        return productResponseDto;
     }
 
     @Override
     public void deleteProduct(Long number) throws Exception {
 
+        productDAO.deleteProduct(number);
+
+
     }
 }
+
