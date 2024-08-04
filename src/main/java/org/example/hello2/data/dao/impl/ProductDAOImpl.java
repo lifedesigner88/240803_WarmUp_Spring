@@ -29,13 +29,13 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public Product updateProductName(Long number, String name) throws Exception {
-
         Optional<Product> selectedProduct = productRepository.findById(number);
+
         if (selectedProduct.isPresent()) {
             Product product = selectedProduct.get();
             product.setName(name);
             product.setUpdateAt(LocalDateTime.now());
-            return  productRepository.save(product);
+            return productRepository.save(product);
 
         } else throw new Exception();
 
@@ -43,10 +43,9 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public void deleteProduct(Long number) throws Exception {
-
         Optional<Product> selectedProduct = productRepository.findById(number);
 
-        if(selectedProduct.isPresent()) {
+        if (selectedProduct.isPresent()) {
             Product product = selectedProduct.get();
             productRepository.delete(product);
         } else throw new Exception();
