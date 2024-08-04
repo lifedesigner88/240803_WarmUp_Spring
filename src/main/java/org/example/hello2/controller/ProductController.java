@@ -4,6 +4,7 @@ import org.example.hello2.data.dto.ChangeProductNameDto;
 import org.example.hello2.data.dto.ProductDto;
 import org.example.hello2.data.dto.ProductResponseDto;
 import org.example.hello2.service.ProductService;
+import org.example.hello2.service.impl.ProductServiceImpleForTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class ProductController {
     private final ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductServiceImpleForTest productService) {
         this.productService = productService;
     }
 
