@@ -1,4 +1,4 @@
-package org.example.hello2.controller;
+package org.example.hello2.controller.fortest;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

@@ -1,4 +1,4 @@
-package org.example.hello2.controller;
+package org.example.hello2.controller.fortest;
 
 import org.example.hello2.dto.MemberDto;
 import org.springframework.web.bind.annotation.PostMapping;

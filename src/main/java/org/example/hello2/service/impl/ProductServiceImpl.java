@@ -7,16 +7,14 @@ import org.example.hello2.data.entity.Product;
 import org.example.hello2.service.ProductService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
 @Service
 public class ProductServiceImpl implements ProductService {
+
     private final ProductDAO productDAO;
 
     public ProductServiceImpl(ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
-
 
     @Override
     public ProductResponseDto getProduct(Long number) {
@@ -34,36 +32,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDto saveProduct(ProductDto productDto) {
 
-        Product product = new Product();
-        product.setName(productDto.getName());
-        product.setPrice(productDto.getPrice());
-        product.setStock(productDto.getStock());
-        product.setCreateAt(LocalDateTime.now());
-        product.setUpdateAt(LocalDateTime.now());
-
+        Product product = new Product(productDto);
         Product savedProduct = productDAO.insertProduct(product);
-
-        ProductResponseDto productResponseDto = new ProductResponseDto();
-        productResponseDto.setNumber(savedProduct.getNumber());
-        productResponseDto.setName(savedProduct.getName());
-        productResponseDto.setPrice(savedProduct.getPrice());
-        productResponseDto.setStock(savedProduct.getStock());
-
-        return productResponseDto;
+        return new ProductResponseDto(savedProduct);
 
     }
 
     @Override
     public ProductResponseDto changeProductName(Long number, String newName) throws Exception {
         Product changedProduct = productDAO.updateProductName(number, newName);
-
-        ProductResponseDto productResponseDto = new ProductResponseDto();
-        productResponseDto.setNumber(changedProduct.getNumber());
-        productResponseDto.setName(changedProduct.getName());
-        productResponseDto.setPrice(changedProduct.getPrice());
-        productResponseDto.setStock(changedProduct.getStock());
-
-        return productResponseDto;
+        return new ProductResponseDto(changedProduct);
     }
 
     @Override
