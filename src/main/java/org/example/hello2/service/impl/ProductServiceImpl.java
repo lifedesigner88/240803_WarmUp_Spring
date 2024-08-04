@@ -5,9 +5,11 @@ import org.example.hello2.data.dto.ProductDto;
 import org.example.hello2.data.dto.ProductResponseDto;
 import org.example.hello2.data.entity.Product;
 import org.example.hello2.service.ProductService;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
 public class ProductServiceImpl implements ProductService {
     private final ProductDAO productDAO;
 
