@@ -16,12 +16,9 @@ public class ProductResponseDto {
     private int stock;
 
     public ProductResponseDto(Product product) {
-
         this.number = product.getNumber();
         this.name = product.getName();
         this.price = product.getPrice();
         this.stock = product.getStock();
-
     }
-
 }
