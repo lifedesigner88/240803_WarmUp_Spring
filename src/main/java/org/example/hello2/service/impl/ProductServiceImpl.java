@@ -18,20 +18,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto getProduct(Long number) {
-
-        Product product = productDAO.selectProduct(number);
-        ProductResponseDto productResponseDto = new ProductResponseDto();
-        productResponseDto.setNumber(product.getNumber());
-        productResponseDto.setName(product.getName());
-        productResponseDto.setPrice(product.getPrice());
-        productResponseDto.setStock(product.getStock());
-
-        return productResponseDto;
+        return new ProductResponseDto(
+                productDAO.selectProduct(number)
+        );
     }
 
     @Override
     public ProductResponseDto saveProduct(ProductDto productDto) {
-
+        System.out.println("hihi 2");
         Product product = new Product(productDto);
         Product savedProduct = productDAO.insertProduct(product);
         return new ProductResponseDto(savedProduct);

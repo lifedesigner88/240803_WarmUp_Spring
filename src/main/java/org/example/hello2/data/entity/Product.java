@@ -1,5 +1,7 @@
 package org.example.hello2.data.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.hello2.data.dto.ProductDto;
@@ -8,6 +10,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "product")
@@ -36,5 +40,4 @@ public class Product {
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
     }
-
 }
