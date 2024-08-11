@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductDAO productDAO;
-
     public ProductServiceImpl(ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
