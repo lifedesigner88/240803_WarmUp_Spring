@@ -114,8 +114,6 @@ public class ProductRepositoryTest3 {
         System.out.println("❤️❤️❤️" + toJson(Collections.singletonList(selectedList)));
 
 
-
-
         productRepository.deleteByName("펜");
     }
 

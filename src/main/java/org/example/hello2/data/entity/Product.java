@@ -15,6 +15,7 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "product")
 public class Product extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long number;
@@ -27,6 +28,16 @@ public class Product extends BaseEntity {
 
     @Column(nullable = false)
     private Integer stock;
+
+    @OneToOne(mappedBy = "product")
+    @ToString.Exclude
+    private ProductDetail productDetail;
+
+    @ManyToOne
+    @JoinColumn
+    @ToString.Exclude
+    private Provider provider;
+
 
     public Product(ProductDto productDto) {
         this.name = productDto.getName();

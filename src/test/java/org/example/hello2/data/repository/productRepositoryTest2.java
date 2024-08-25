@@ -1,11 +1,15 @@
 package org.example.hello2.data.repository;
 
 
+import com.google.gson.Gson;
 import org.assertj.core.api.Assertions;
 import org.example.hello2.data.entity.Product;
+import org.example.hello2.data.entity.Provider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,6 +19,61 @@ public class productRepositoryTest2 {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    Gson gson;
+
+    @Autowired
+    ProviderRepository providerRepository;
+
+    @Test
+    void relationsShipsTest1() {
+        Provider provider = new Provider();
+        provider.setName("삼정물산");
+
+        providerRepository.save(provider);
+
+        Product product = Product.builder()
+                .name("가위")
+                .price(5000)
+                .stock(500)
+                .provider(provider)
+                .build();
+
+        productRepository.save(product);
+
+        Product product2 = Product.builder()
+                .name("딱풀")
+                .price(5000)
+                .stock(500)
+                .provider(provider)
+                .build();
+
+        productRepository.save(product2);
+
+        System.out.println("🐤 Product : " +
+                gson.toJson(
+                        productRepository.findById(1L)
+                                .orElseThrow(RuntimeException::new)
+                )
+        );
+        System.out.println("🐤 Provider : " +
+                gson.toJson(
+                        productRepository.findById(1L)
+                                .orElseThrow(RuntimeException::new)
+                                .getProvider()
+                )
+        );
+
+
+        List<Product> products = providerRepository
+                .findById(provider.getId()).get()
+                .getProductList();
+
+        System.out.println(gson.toJson(products));
+
+    }
+
 
     @Test
     public void basicCRUDTest() {
@@ -45,7 +104,7 @@ public class productRepositoryTest2 {
         /* read */
         // when
         Product selectedProduct = productRepository.findById(
-                savedProduct.getNumber())
+                        savedProduct.getNumber())
                 .orElseThrow(RuntimeException::new);
 
         // then
@@ -61,7 +120,7 @@ public class productRepositoryTest2 {
         /* update */
         // when
         Product foundProduct = productRepository.findById(
-                selectedProduct.getNumber())
+                        selectedProduct.getNumber())
                 .orElseThrow(RuntimeException::new);
 
         foundProduct.setName("장난감");
