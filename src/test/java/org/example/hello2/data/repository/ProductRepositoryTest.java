@@ -20,13 +20,19 @@ public class ProductRepositoryTest {
     void save() {
 
         // given
-        Product product = Product.builder()
-                .name("펜")
-                .price(1000)
-                .stock(1000)
-                .build();
+        Product product = new Product();
+
+        product.setName("펜2");
+        product.setPrice(1000);
+        product.setStock(100);
 
         Product savedProduct = productRepository.save(product);
+
+        System.out.println("✅ " + savedProduct);
+
+        Product findProduct = productRepository.findByName("펜2").get(0);
+
+        System.out.println("🐦‍🔥" + findProduct);
 
         assertEquals(product.getName(), savedProduct.getName());
         assertEquals(product.getPrice(), savedProduct.getPrice());

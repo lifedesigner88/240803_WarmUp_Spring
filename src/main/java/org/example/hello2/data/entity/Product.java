@@ -1,21 +1,20 @@
 package org.example.hello2.data.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.hello2.data.dto.ProductDto;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
-@Data
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
-@Entity
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "product")
-public class Product {
+public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long number;
@@ -29,15 +28,9 @@ public class Product {
     @Column(nullable = false)
     private Integer stock;
 
-    private LocalDateTime createAt;
-
-    private LocalDateTime updateAt;
-
     public Product(ProductDto productDto) {
         this.name = productDto.getName();
         this.price = productDto.getPrice();
         this.stock = productDto.getStock();
-        this.createAt = LocalDateTime.now();
-        this.updateAt = LocalDateTime.now();
     }
 }

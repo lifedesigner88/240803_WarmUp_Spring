@@ -30,24 +30,18 @@ public class ProductRepositoryTestForQueryDSL {
                 .name("펜")
                 .price(1000)
                 .stock(100)
-                .createAt(LocalDateTime.now())
-                .updateAt(LocalDateTime.now())
                 .build();
 
         Product product2 = Product.builder()
                 .name("펜")
                 .price(5000)
                 .stock(300)
-                .createAt(LocalDateTime.now())
-                .updateAt(LocalDateTime.now())
                 .build();
 
         Product product3 = Product.builder()
                 .name("펜")
                 .price(500)
                 .stock(50)
-                .createAt(LocalDateTime.now())
-                .updateAt(LocalDateTime.now())
                 .build();
 
         Product savedProduct1 = productRepository.save(product1);
