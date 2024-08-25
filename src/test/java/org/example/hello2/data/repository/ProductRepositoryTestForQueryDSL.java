@@ -70,10 +70,12 @@ public class ProductRepositoryTestForQueryDSL {
 
     }
 
+    @Autowired
+    JPAQueryFactory queryFactory;
+
     @Test
     void queryDslTest2() {
 
-        JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
         QProduct qProduct = QProduct.product;
 
         List<Product> productList = queryFactory
