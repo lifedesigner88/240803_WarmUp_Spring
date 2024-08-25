@@ -24,4 +24,5 @@ public class ProductDetail extends BaseEntity {
     private Product product;
 
 
+
 }
