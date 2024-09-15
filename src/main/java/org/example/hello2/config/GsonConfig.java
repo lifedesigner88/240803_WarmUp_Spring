@@ -45,7 +45,8 @@ class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
     @Override
     public boolean shouldSkipField(FieldAttributes f) {
         return (f.getDeclaringClass() == Product.class && f.getName().equals("productDetail")) ||
-                (f.getDeclaringClass() == Product.class && f.getName().equals("provider"));
+                (f.getDeclaringClass() == Product.class && f.getName().equals("provider")) ||
+                (f.getDeclaringClass() == Product.class && f.getName().equals("producers"));
     }
 
     @Override

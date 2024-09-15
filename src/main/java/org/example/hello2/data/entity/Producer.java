@@ -10,25 +10,21 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@Builder
-@AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Provider extends BaseEntity {
+public class Producer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String code;
     private String name;
 
-    @OneToMany(
-            mappedBy = "provider",
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.PERSIST,
-            orphanRemoval = true
-    )
-    @ToString.Exclude
-    private List<Product> productList = new ArrayList<>();
+    @ManyToMany
+    private List<Product> products = new ArrayList<>();
+    public void addProduct(Product product){
+        products.add(product);
+    }
 
 }

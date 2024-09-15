@@ -4,6 +4,8 @@ import lombok.*;
 import org.example.hello2.data.dto.ProductDto;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -38,6 +40,14 @@ public class Product extends BaseEntity {
     @ToString.Exclude
     private Provider provider;
 
+    @ManyToMany
+    @Builder.Default
+    @ToString.Exclude
+    private List<Producer> producers = new ArrayList<>();
+
+    public void addProducer(Producer producer) {
+        this.producers.add(producer);
+    }
 
     public Product(ProductDto productDto) {
         this.name = productDto.getName();
