@@ -1,6 +1,7 @@
 package org.example.hello2.data.dto;
 
 import lombok.*;
+import org.example.hello2.config.annotation.Telephone;
 import org.example.hello2.data.dao.group.ValidationGroup1;
 import org.example.hello2.data.dao.group.ValidationGroup2;
 
@@ -19,7 +20,8 @@ public class ValidatedRequestDto {
     @Email
     private String email;
 
-    @Pattern(regexp="^010-\\d{4}-\\d{4}$")
+//    @Pattern(regexp="^010-\\d{4}-\\d{4}$")
+    @Telephone
     String phoneNumber;
 
     @Min(value = 20, groups = ValidationGroup1.class)
