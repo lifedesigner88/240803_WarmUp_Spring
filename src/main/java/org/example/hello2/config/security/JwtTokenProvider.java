@@ -5,8 +5,6 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,7 +23,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(JwtTokenProvider.class);
     private final UserDetailsService userDetailsService;
 
     @Value("${springboot.jwt.secret}")
@@ -36,7 +33,6 @@ public class JwtTokenProvider {
     // 사전 실행
     @PostConstruct
     public void init() {
-        LOGGER.info("[init] JwtTokenProvider 내 secretKey 초기화 시작");
         System.out.println(secretKey);
         secretKey = Base64.getEncoder()
                 .encodeToString(secretKey.getBytes(StandardCharsets.UTF_8));
@@ -44,9 +40,6 @@ public class JwtTokenProvider {
     }
 
     public String createToken(String userUid, List<String> roles) {
-
-        LOGGER.info("[CreateToken] 토큰 생성 시작");
-
         Claims claims = Jwts.claims().setSubject(userUid);
         claims.put("roles", roles);
         Date now = new Date();
@@ -60,17 +53,16 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-
-        LOGGER.info("[getAuthentication] 토큰 인증 정보 조회 시작");
-        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUsername(token));
-        LOGGER.info("[getAuthentication] 토큰 인증 정보 조회 완료, UserDetails UserName : {}", userDetails.getUsername());
-
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        UserDetails userDetails = userDetailsService
+                .loadUserByUsername(this.getUsername(token));
+        return new UsernamePasswordAuthenticationToken(
+                userDetails,
+                "",
+                userDetails.getAuthorities()
+        );
     }
 
     public String getUsername(String token) {
-        LOGGER.info("[getUsername] 토큰 기반 회원 구분 정보 추출");
-
         return Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
@@ -83,19 +75,18 @@ public class JwtTokenProvider {
     }
 
     public boolean validateToken(String token) {
-
         try {
             Jws<Claims> claims = Jwts.parser()
                     .setSigningKey(secretKey)
                     .parseClaimsJws(token);
-            return !claims.getBody().getExpiration().before(new Date());
+            return !claims.getBody()
+                    .getExpiration()
+                    .before(new Date());
         } catch (Exception e) {
             return false;
         }
 
     }
-
-
 
 
 }
