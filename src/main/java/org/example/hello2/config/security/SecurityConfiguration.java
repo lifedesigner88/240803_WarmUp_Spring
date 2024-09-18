@@ -37,18 +37,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "sign-api/exception").permitAll()
 
                 .antMatchers(HttpMethod.GET, "/product/**").permitAll()
-
                 .antMatchers("**exception**").permitAll()
 
                 .anyRequest().hasRole("ADMIN")
 
                 .and()
-                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
-                .and()
-                .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                .exceptionHandling()
+                .accessDeniedHandler(new CustomAccessDeniedHandler())
 
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+                .exceptionHandling()
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+
+                .and()
+                .addFilterBefore(
+                        new JwtAuthenticationFilter(jwtTokenProvider),
+                        UsernamePasswordAuthenticationFilter.class
+                );
 
 
     }
