@@ -29,7 +29,5 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.getWriter().write(objectMapper.writeValueAsString(entryPointErrorResponse));
 
-
-
     }
 }

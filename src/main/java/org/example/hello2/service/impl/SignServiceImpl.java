@@ -16,7 +16,6 @@ import java.util.Collections;
 @Service
 public class SignServiceImpl implements SignService {
 
-
     public UserRepository userRepository;
     public JwtTokenProvider jwtTokenProvider;
     public PasswordEncoder passwordEncoder;
@@ -37,28 +36,22 @@ public class SignServiceImpl implements SignService {
     public SignUpResultDto signUp(String id, String password, String name, String role) {
 
         User user;
-        if (role.equalsIgnoreCase("admin"))
-            user = User.builder()
-                    .uid(id)
-                    .name(name)
-                    .password(passwordEncoder.encode(password))
-                    .roles(Collections.singletonList("ROLE_ADMIN"))
-                    .build();
-        else
-            user = User.builder()
-                    .uid(id)
-                    .name(name)
-                    .password(passwordEncoder.encode(password))
-                    .roles(Collections.singletonList("ROLE_USER"))
-                    .build();
+        String roleStr;
+        if (role.equalsIgnoreCase("admin")) roleStr = "ROLE_ADMIN";
+        else roleStr = "ROLE_USER";
+        user = User.builder()
+                .uid(id)
+                .name(name)
+                .password(passwordEncoder.encode(password))
+                .roles(Collections.singletonList(roleStr))
+                .build();
 
         User savedUser = userRepository.save(user);
         SignUpResultDto signUpResultDto = new SignInResultDto();
 
         if (!savedUser.getName().isEmpty())
             setSuccessResult(signUpResultDto);
-        else
-            setFailResult(signUpResultDto);
+        else setFailResult(signUpResultDto);
 
         return signUpResultDto;
     }
@@ -81,8 +74,6 @@ public class SignServiceImpl implements SignService {
                                 )
                 )
                 .build();
-
-
         setSuccessResult(signInResultDto);
         return signInResultDto;
     }
